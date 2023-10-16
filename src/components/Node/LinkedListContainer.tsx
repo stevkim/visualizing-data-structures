@@ -1,17 +1,19 @@
 import { motion } from 'framer-motion';
 import { NodeObject } from './Node';
 
+
 interface Props {
   node: NodeObject;
   index: number;
   insertAt(index: number) : void;
   listSize: number;
+  type: string;
 }
 
-const LinkedListContainer = ({ node, index, insertAt, listSize}: Props) => {
+const LinkedListContainer = ({ node, index, insertAt, listSize, type}: Props) => {
   return (
     <motion.div
-      key={`${node} + ${index}`}
+      key={`${node.value}+${index}+${type}`}
       className={`flex flex-row relative h-[60px] cursor-pointer ${node.lastAdded ? 'border-2 border-red-400' : ''}`}
       initial={{ opacity: 0, translateX: -200}}
       animate={{ opacity: 1, translateX: 0}}
@@ -26,6 +28,15 @@ const LinkedListContainer = ({ node, index, insertAt, listSize}: Props) => {
         : index === listSize - 1
         ? <span className='absolute bottom-[-20px] right-[5px] text-red-400'>Tail</span>
         : <></>
+      }
+      {
+        type === 'doubly' && (
+          <div className='aspect-square w-[60px] border border-black flex justify-center items-center'>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
+          </div>
+        )
       }
       <div className='aspect-square w-[60px] border border-black flex justify-center items-center overflow-hidden'>
         {node.value}

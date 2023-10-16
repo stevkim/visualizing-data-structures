@@ -1,4 +1,3 @@
-
 import { Outlet, Link } from "react-router-dom";
 
 function App() {
@@ -14,6 +13,10 @@ function App() {
     {
       name: 'Singly Linked List',
       link: '/singly-linked-list'
+    },
+    {
+      name: 'Doubly Linked List',
+      link: '/doubly-linked-list'
     }
   ];
 

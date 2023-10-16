@@ -52,19 +52,16 @@ const SinglyLinkedList = () => {
     const removedNode = linkedList[linkedList.length - 1]
     setLinkedList(linkedList.slice(0, linkedList.length - 1));
     if (removedNode) {
-      setRemoved(removedNode);
+      setRemovedNode(removedNode);
     }
   }, [linkedList])
 
   const addToHead = useCallback(() => {
     const value = inputRef.current!.value;
     if (value === '') return;
-    let currentFirstNode = null;
-    if (linkedList.length > 0) {
-      addNew();
-      currentFirstNode = linkedList[0];
-    }
+    const currentFirstNode = linkedList.length > 0 ? linkedList[0] : null;
     const newNode = Node(value, currentFirstNode);
+    addNew();
     setLinkedList([newNode, ...linkedList]);
     inputRef.current!.value = '';
   }, [linkedList, addNew])
@@ -78,7 +75,7 @@ const SinglyLinkedList = () => {
     }
   }, [linkedList])
 
-  const insertAt= (index: number) => {
+  const insertAt = (index: number) => {
     if (!insert || linkedList.length <= 0) return;
     const value = inputRef.current!.value;
     if (value === '') {
@@ -110,7 +107,7 @@ const SinglyLinkedList = () => {
   }, [linkedList, listSize, addToHead, addToTail, removeFromHead, removeFromTail])
 
   return (
-    <div className="w-full h-full flex flex-col items-center gap-10">
+    <div className="w-full h-full flex flex-col items-center gap-4">
       <Title title="Visualizing Singly Linked List!"/>
       <HorizontalDataWrapper>
         <AnimatePresence>
@@ -118,7 +115,7 @@ const SinglyLinkedList = () => {
           linkedList.map((node, index) => {
             return (
               <Fragment key={index}>
-                <LinkedListContainer node={node} index={index} insertAt={insertAt} listSize={listSize}/>
+                <LinkedListContainer node={node} index={index} insertAt={insertAt} listSize={listSize} type="singly"/>
               </Fragment>
             )
           })
