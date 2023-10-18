@@ -13,6 +13,7 @@ const SinglyLinkedList = () => {
   const [removed, setRemoved] = useState<NodeObject | null>(null);
   const [insert, setInsert] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [newID, setNewID] = useState(1);
 
   const setRemovedNode = (node: NodeObject) => {
     setRemoved(node);
@@ -30,7 +31,8 @@ const SinglyLinkedList = () => {
   const addToTail = useCallback(() => {
     const value = inputRef.current!.value;
     if (value === '') return;
-    const newNode = Node(value, null);
+    const newNode = Node(value, newID, null);
+    setNewID(newID + 1);
     if (linkedList.length > 0) {
       addNew();
       const lastNode = linkedList[linkedList.length - 1];
@@ -60,7 +62,8 @@ const SinglyLinkedList = () => {
     const value = inputRef.current!.value;
     if (value === '') return;
     const currentFirstNode = linkedList.length > 0 ? linkedList[0] : null;
-    const newNode = Node(value, currentFirstNode);
+    const newNode = Node(value, newID, currentFirstNode);
+    setNewID(newID + 1);
     addNew();
     setLinkedList([newNode, ...linkedList]);
     inputRef.current!.value = '';
@@ -85,7 +88,8 @@ const SinglyLinkedList = () => {
     addNew();
     const currentNode = linkedList[index];
     const nextNode = currentNode.next;
-    const newNode = Node(value, nextNode);
+    const newNode = Node(value, newID, nextNode);
+    setNewID(newID + 1);
     currentNode.next = newNode;
     const newList = [];
     let firstNode = linkedList[0];
@@ -114,7 +118,7 @@ const SinglyLinkedList = () => {
         {
           linkedList.map((node, index) => {
             return (
-              <Fragment key={index}>
+              <Fragment key={node.id}>
                 <LinkedListContainer node={node} index={index} insertAt={insertAt} listSize={listSize} type="singly"/>
               </Fragment>
             )

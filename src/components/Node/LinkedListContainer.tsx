@@ -13,7 +13,7 @@ interface Props {
 const LinkedListContainer = ({ node, index, insertAt, listSize, type}: Props) => {
   return (
     <motion.div
-      key={`${node.value}+${index}+${type}`}
+      key={node.id}
       className={`flex flex-row relative h-[60px] cursor-pointer ${node.lastAdded ? 'border-2 border-red-400' : ''}`}
       initial={{ opacity: 0, translateX: -200}}
       animate={{ opacity: 1, translateX: 0}}
