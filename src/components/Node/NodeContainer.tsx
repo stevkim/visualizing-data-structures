@@ -22,7 +22,7 @@ const NodeContainer = ({ node, index, type }:Props) => {
 
   return (
       <motion.div
-        key={`${node} + ${index}`}
+        key={node.id}
         className={`w-[150px] h-[40px] flex justify-center items-center relative ${node.lastAdded ? 'border-2 border-red-400' : ' border border-black'}`}
         variants={type === 'stack' ? Stacks : Queue}
         initial="enter"
